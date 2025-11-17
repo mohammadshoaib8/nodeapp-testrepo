@@ -38,14 +38,14 @@ spec:
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data
-      volumeClaimTemplates: 
-        - metadata:
-            name: pgdata
-          spec:
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 5Gi
+  volumeClaimTemplates: 
+    - metadata:
+        name: pgdata
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 5Gi
                 
 
   
