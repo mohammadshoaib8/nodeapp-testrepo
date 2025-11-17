@@ -1,9 +1,12 @@
-// simple express app connecting to Postgres
 const express = require('express');
 const { Pool } = require('pg');
+const client = require('prom-client'); // <-- import prom-client
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Prometheus default metrics
+client.collectDefaultMetrics();
 
 const pool = new Pool({
   host: process.env.DB_HOST || 'postgres',
@@ -24,5 +27,11 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/health', (req, res) => res.send('ok'));
+
+// New /metrics endpoint for Prometheus
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', client.register.contentType);
+  res.end(await client.register.metrics());
+});
 
 app.listen(port, () => console.log(`App listening on ${port}`));
