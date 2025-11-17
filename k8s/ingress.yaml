@@ -6,11 +6,10 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: demoeks.example.com
-      http:
+    - http:
         paths:
         - path: /
-          pathType: prefix
+          pathType: Prefix
           backend:
             service:
               name: demo-node-svc

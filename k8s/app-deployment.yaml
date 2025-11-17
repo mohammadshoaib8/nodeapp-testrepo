@@ -18,23 +18,29 @@ spec:
         - name: demo-node
           image: msshoaib2255457/nodejenkinstest:latest
           ports:
-            - containerPort: "3000"
+            - containerPort: 3000   # FIXED: integer
+
           env:
             - name: DB_HOST
-              value: postgres
+              value: "postgres"
+
             - name: DB_PORT
-              value: 5432
-            
+              value: "5432"
+
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: postgres-secret
                   key: POSTGRES_USER
+
             - name: DB_PASSWORD
               valueFrom:
-                name: postgres-secret
-                key: POSTGRES_PASSWORD
+                secretKeyRef:          # FIXED
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+
             - name: DB_NAME
               valueFrom:
-                name: postgres-secret
-                key: POSTGRES_DB 
+                secretKeyRef:          # FIXED
+                  name: postgres-secret
+                  key: POSTGRES_DB
