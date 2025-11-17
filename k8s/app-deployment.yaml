@@ -18,7 +18,7 @@ spec:
         - name: demo-node
           image: msshoaib2255457/nodejenkinstest:latest
           ports:
-            - containerPort: 3000
+            - containerPort: "3000"
           env:
             - name: DB_HOST
               value: postgres
