@@ -35,22 +35,16 @@ spec:
                 secretKeyRef:
                   name: postgres-secret
                   key: POSTGRES_PASSWORD
-            - name: PGDATA
-              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - name: pgdata
-              mountPath: /var/lib/postgresql/data/pgdata
-  volumeClaimTemplates: 
+              mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
     - metadata:
         name: pgdata
       spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: gp2
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: gp2   # <<< REQUIRED
         resources:
           requests:
             storage: 5Gi
-                
-
-  
-
-
